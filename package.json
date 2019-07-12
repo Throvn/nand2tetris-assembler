@@ -1,0 +1,22 @@
+{
+  "name": "hack-compiler",
+  "version": "1.0.0",
+  "description": "A high level programming assembler, which allows to convert programms written in the hack assembly language to be convertet into binary code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hack",
+    "nand2tetris",
+    "throvn",
+    "binary",
+    "assembly",
+    "compiler"
+  ],
+  "author": "Louis Stanko",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2"
+  }
+}
