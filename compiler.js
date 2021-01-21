@@ -25,10 +25,10 @@ function wait(ms) {
 let instructions = [], zeros = '000000000000000'
 let lineCount = 0, linesIgnored = 0
 
-let mem = 16383, vars = {}
+let mem = 17, vars = {}
 
 var lines = require('fs').readFileSync(fileName, 'utf-8')
-    .split('\n')
+    .split(/\n|\r/g)
     .filter(Boolean);
 
 lines.forEach((line, index) => {
@@ -56,7 +56,7 @@ lines.forEach((line, index) => {
             default:
                 if(!vars[varname]) {
                     vars[varname] = mem
-                    mem--
+                    mem++
                 }
                 break;
         }
@@ -69,6 +69,7 @@ console.log("Variables (+ memory location): ", vars)
 wait(10)
 lines.forEach((line, index) => {
     line = line.split(" ").join("")
+
     if (line.startsWith('//') || line === "") return;
     else if (line.includes('//')) line = line.split("//")[0];
     else if (line.search(/\((.*?)\)/) >= 0) return;
@@ -160,7 +161,8 @@ lines.forEach((line, index) => {
                     } else if (inst.c === 'A' || inst.c === 'M') {
                         c1 = '1', c2 = '1'
                     } else {
-                        console.log(chalk.bold.red(lineCount+": The Character you used is not allowed"))
+                        console.log(chalk.bold.red(index+": The Character you used is not allowed"))
+                        console.log(line)
                     }
                     break;
                 case 2:
@@ -234,7 +236,7 @@ lines.forEach((line, index) => {
 console.log(instructions)
 let res = ""
 instructions.forEach(line => {
-    res = res + line+"\n"
+    res = res + line + "\n"
 })
 
 fs.appendFile(process.argv[3]+'.hack', res, (err) => {
